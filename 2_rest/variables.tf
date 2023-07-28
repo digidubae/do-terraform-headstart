@@ -33,10 +33,6 @@ variable "do_app_name" {
   nullable = false
 }
 
-variable "my_public_ip_address" {
-  type     = string
-  nullable = false
-}
 
 variable "do_repo_name" {
   type     = string

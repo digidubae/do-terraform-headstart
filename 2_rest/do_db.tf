@@ -1,3 +1,8 @@
+variable "my_public_ip_address" {
+  type     = string
+  nullable = false
+}
+
 resource "digitalocean_database_cluster" "mysql-cluster" {
   name       = "deliverit"
   engine     = "mysql"
@@ -22,6 +27,7 @@ resource "digitalocean_database_firewall" "db-fw" {
     type  = "ip_addr"
     value = var.my_public_ip_address
   }
+
 }
 
 

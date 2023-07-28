@@ -2,7 +2,12 @@
     "tasks": {
         "dev":"env-cmd deno task dev_cmd",
         "dev_cmd": "export DOPPLER_TOKEN=$DEV_DOPPLER_TOKEN && doppler run -p $DOPPLER_PROJECT_NAME --config $DOPPLER_DEV_CONF_NAME -- deno run  -A --watch src/server.ts",
-        "build-container": "docker build -t app-example .",
+        "build-container": "env-cmd deno task build-container_cmd",
+        "build-container_cmd": "docker build -t $APP_NAME .",
+        "tag-container": "env-cmd deno task tag-container_cmd",
+        "tag-container_cmd": "docker tag $APP_NAME registry.digitalocean.com/$CONTAINER_REGISTRY_NAME/$APP_NAME",
+        "push-container": "env-cmd deno task push-container_cmd",
+        "push-container_cmd": "docker push registry.digitalocean.com/$CONTAINER_REGISTRY_NAME/$APP_NAME",
         "run-container-locally":"env-cmd deno task run-container-locally_cmd",
         "run-container-locally_cmd":"docker run -e DOPPLER_TOKEN=$PRD_DOPPLER_TOKEN -e DOPPLER_PROJECT_NAME=$DOPPLER_PROJECT_NAME -e DOPPLER_PRD_CONF_NAME=$DOPPLER_PRD_CONF_NAME -it --init -p 3000:3000 app-example",
         "prd-command": "doppler run -t $DOPPLER_TOKEN -p $DOPPLER_PROJECT_NAME --config $DOPPLER_PRD_CONF_NAME -- deno run  -A src/server.ts"

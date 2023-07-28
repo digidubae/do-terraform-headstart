@@ -5,4 +5,12 @@ terraform {
       version = "~> 2.0"
     }
   }
+
+  cloud {
+    organization = "alkait"
+
+    workspaces {
+      name = "example-workspace"
+    }
+  }
 }
