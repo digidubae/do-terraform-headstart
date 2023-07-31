@@ -8,25 +8,34 @@ A terraform head-start skeleton to get up and running on Digitalocean based on a
 - A Container registry (to receive your dockeraized app)
 - A Managed database
 - An App (on app platform)
-- A project to contain the above resources
+- A project to contain the above resource
+- An integration with Doppler secret management
 
 ## Prerequisite
-- doctl
-- Terraform
-- Define TF_VAR_do_token and TF_VAR_app_doppler_token in .env file in 2_rest .env file
-- define TF_VAR_do_token in 1_registry .env file
-- env-cmd
-- A Doppler account
-
-Note: The .env files are used to configure terraform parameters.  They are not meant to exist on production environments.
-
+- [doctl](https://docs.digitalocean.com/reference/doctl/how-to/install/)
+- [Terraform](https://developer.hashicorp.com/terraform/downloads)
+- [npm](https://www.npmjs.com/package/n#installation)
+- env-cmd: **npm i -global env-cmd**
+<!-- - Define TF_VAR_do_token and TF_VAR_app_doppler_token in .env file in 2_rest .env file
+- define TF_VAR_do_token in 1_registry .env file -->
+- [Doppler account](https://doppler.com)
+- [Doppler cli](https://docs.doppler.com/docs/install-cli)
 ## Steps to build the infrastructure
 
 ### 1. Clone this Repo
-
+```sh
+git clone https://github.com/digidubae/do-terraform-headstart.git
+```
 ### 2. Build a Docker Container registry on Digitalocean
 ```sh
 cd 1_registry
+```
+Update your organization under the cloud block in **main.tf** (this has to be hardcoded instead of picking up from a variable as you cannot use variables in the cloud block)
+
+login and init terraform:
+```sh
+terraform login
+terraform init
 ```
 Create an .env file and define TF_VAR_do_token in it
 ```sh
@@ -38,19 +47,27 @@ env-cmd terraform apply
 ```
 
 ### 3. Push your application to the Container Registry
-Read the app-example README.md for instructions on how to push your containers.
+Explore the /app-example to learn the workflow of dockerizing and pushing your app container to the registry you just created.
 
-The app will be automatically re-deployed on every push to the container registry.
-
+Once you push your app to the container registry, you are ready to build the rest of the infrastructure 
 
 ### 4. Build the rest of infrastructure
 ```sh
 cd 2_rest
 ```
+Update your organization name under the cloud block in **main.tf** (this has to be hardcoded instead of picking up from a variable as you cannot use variables in the cloud block)
+
+Also, update do_app_name and do_repo_name to match your APP_NAME from the app-example .env file
+
+init terraform:
+```sh
+terraform init
+```
+
 Create an .env file and define TF_VAR_do_token in it
 ```sh
 TF_VAR_do_token=yOuRDigitalOceanTokenHere
-TF_VAR_app_doppler_token=yOuRDopplerServiceTokenHere
+TF_VAR_app_doppler_token=yOuR.Prd.DopplerService.TokenHere
 ```
 Run this shell script to export your public ip address as an environment variable for terraform to pick up during the build.  This is used to allow your current ip address to
 access the database which can be very useful for development purposes.

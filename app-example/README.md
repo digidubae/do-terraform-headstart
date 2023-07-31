@@ -1,7 +1,6 @@
 ## Create .env file
-Note: This .env file is used to run and build locally.  It is not meant to exist on production environments.
-
 ```sh
+PRD_DOPPLER_TOKEN=yOuR.Prd.dOppLeRtOkEn
 DEV_DOPPLER_TOKEN=yOuR.Dev.dOppLeRtOkEn
 DOPPLER_PROJECT_NAME=doppler_project_name
 DOPPLER_DEV_CONF_NAME=doppler_dev_env_name
@@ -14,6 +13,9 @@ APP_NAME=app_name
 ```sh
 deno task dev
 ```
+Note: in some OS types, deno gives the following error:
+***error: Function not implemented (os error 38)***
+If you face this error, remove the --watch from dev_cmd in deno.json
 
 ## Build your container
 ```sh
