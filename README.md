@@ -12,13 +12,15 @@ A terraform head-start skeleton to get up and running on Digitalocean based on a
 - An integration with Doppler secret management
 
 ## Prerequisite
+- [digitalocean account](https://digitalocean.com)
 - [doctl](https://docs.digitalocean.com/reference/doctl/how-to/install/)
+- [Terraform cloud account](https://www.hashicorp.com/products/terraform)
+- Terraform cloud organization, and two workspaces (named exactly as container_registry and infra).  You can leave the default project.
 - [Terraform](https://developer.hashicorp.com/terraform/downloads)
 - [npm](https://www.npmjs.com/package/n#installation)
 - env-cmd: **npm i -global env-cmd**
-<!-- - Define TF_VAR_do_token and TF_VAR_app_doppler_token in .env file in 2_rest .env file
-- define TF_VAR_do_token in 1_registry .env file -->
 - [Doppler account](https://doppler.com)
+- A Doppler project and two configs (one for development and one for production)
 - [Doppler cli](https://docs.doppler.com/docs/install-cli)
 ## Steps to build the infrastructure
 
@@ -26,6 +28,13 @@ A terraform head-start skeleton to get up and running on Digitalocean based on a
 ```sh
 git clone https://github.com/digidubae/do-terraform-headstart.git
 ```
+
+*Make the code yours and maintain it in your own repo*
+
+```sh
+git remote set-url origin https://github.com/../...git
+```
+
 ### 2. Build a Docker Container registry on Digitalocean
 ```sh
 cd 1_registry
