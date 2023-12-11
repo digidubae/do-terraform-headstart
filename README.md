@@ -73,10 +73,12 @@ init terraform:
 terraform init
 ```
 
-Create an .env file and define TF_VAR_do_token in it
+Create an .env file and define following in it
 ```sh
 TF_VAR_do_token=yOuRDigitalOceanTokenHere
 TF_VAR_app_doppler_token=yOuR.Prd.DopplerService.TokenHere
+TF_VAR_app_doppler_project_name=doppler-project-name
+TF_VAR_app_doppler_prd_conf_name=doppler-project-config-name
 ```
 Run this shell script to export your public ip address as an environment variable for terraform to pick up during the build.  This is used to allow your current ip address to
 access the database which can be very useful for development purposes.
